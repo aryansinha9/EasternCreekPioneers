@@ -1,26 +1,72 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-primary: #004B23;
+  --color-primary-light: #006430;
+  --color-primary-dark: #003217;
+
+  --color-secondary: #FFCC00;
+  --color-secondary-light: #FFD633;
+  --color-secondary-dark: #CCAA00;
+
+  --color-neutral-900: #1A1A1A;
+  --color-neutral-800: #262626;
+  --color-neutral-100: #F1F5F9;
+  --color-neutral-50: #F8F9FA;
+
+  --font-heading: var(--font-oswald);
+  --font-body: var(--font-barlow);
+
+  --animate-fade-in-up: fade-in-up 0.8s ease-out forwards;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Custom Utility Classes for Eastern Creek (Refined Marayong Style) */
+  .btn-primary {
+    @apply bg-primary hover:bg-primary-light text-white font-heading font-bold uppercase tracking-widest py-4 px-8 rounded-none transition-colors duration-200 border border-transparent;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary hover:bg-secondary-light text-neutral-900 font-heading font-bold uppercase tracking-widest py-4 px-8 rounded-none transition-colors duration-200;
+  }
+
+  .card-hover {
+    @apply transition-colors duration-200 hover:border-primary bg-white border border-gray-200 rounded-none overflow-hidden;
+  }
+
+  .heading-hero {
+    font-family: var(--font-saira), sans-serif;
+    @apply font-black text-7xl md:text-9xl lg:text-[10rem] leading-[0.8] uppercase tracking-tighter italic;
+    transform: skewX(-12deg);
+    /* Custom "Blocky" tweaks */
+    text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
+  }
+
+  .heading-section {
+    @apply font-heading font-bold text-4xl md:text-5xl text-primary mb-6 uppercase;
+  }
+
+  .delay-100 {
+    animation-delay: 0.1s;
+  }
+
+  .delay-200 {
+    animation-delay: 0.2s;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
