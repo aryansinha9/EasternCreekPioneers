@@ -34,7 +34,9 @@ export default function Hero() {
 
                 <div className="flex flex-col md:flex-row gap-6 animate-fade-in-up delay-200">
                     <a
-                        href="#register"
+                        href="https://playfootball.com.au/football-finder?st=location&lat=-33.8016&lng=150.8516&suburb=Eastern+Creek&state_code=NSW&postcode=2766&age=junior&clubId=74462#infoModal"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="flex items-center gap-3 bg-secondary text-primary font-heading font-bold text-xl py-5 px-10 hover:bg-white transition-all shadow-none uppercase tracking-widest hover:pl-12 duration-300"
                     >
                         REGISTER FOR 2026 <MoveRight size={24} />

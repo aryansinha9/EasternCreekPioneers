@@ -130,9 +130,14 @@ export default function Home() {
             Whether you're a beginner or a seasoned pro, there's a place for you at Eastern Creek.
             Join our growing family today for the 2026 season.
           </p>
-          <button className="bg-primary text-white font-heading font-bold text-2xl py-5 px-12 hover:bg-white hover:text-primary transition-all shadow-none border border-transparent hover:border-primary uppercase tracking-widest">
+          <a
+            href="https://playfootball.com.au/football-finder?st=location&lat=-33.8016&lng=150.8516&suburb=Eastern+Creek&state_code=NSW&postcode=2766&age=junior&clubId=74462#infoModal"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-primary text-white font-heading font-bold text-2xl py-5 px-12 hover:bg-white hover:text-primary transition-all shadow-none border border-transparent hover:border-primary uppercase tracking-widest"
+          >
             REGISTER NOW
-          </button>
+          </a>
         </div>
       </section>
 

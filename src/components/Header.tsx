@@ -107,13 +107,15 @@ export default function Header() {
                                 {link.name}
                             </Link>
                         ))}
-                        <Link
-                            href="#register"
+                        <a
+                            href="https://playfootball.com.au/football-finder?st=location&lat=-33.8016&lng=150.8516&suburb=Eastern+Creek&state_code=NSW&postcode=2766&age=junior&clubId=74462#infoModal"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="mt-8 bg-secondary text-primary font-heading font-bold py-5 px-6 text-center text-2xl hover:bg-white transition-all shadow-none uppercase tracking-widest block"
                             onClick={() => setIsMobileMenuOpen(false)}
                         >
                             JOIN THE CLUB
-                        </Link>
+                        </a>
                     </nav>
 
                     <div className="mt-auto text-center text-white/40 text-sm">

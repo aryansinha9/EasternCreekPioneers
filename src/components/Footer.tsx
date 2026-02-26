@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Twitter, Mail, MapPin } from "lucide-react";
+import { Facebook, Instagram, Mail, MapPin } from "lucide-react";
 import Image from "next/image";
 import GlareHover from "./GlareHover";
 
@@ -43,17 +43,14 @@ export default function Footer() {
                         </GlareHover>
                     </div>
                     <p className="text-gray-300 mb-6 font-body text-sm leading-relaxed">
-                        The heart of soccer in Eastern Creek since 1976. We are dedicated to developing players of all ages and abilities in a fun, supportive environment.
+                        Eastern Creek is a Soccer Club in the Blacktown District Est 1974. Come and play the Creek Way.
                     </p>
                     <div className="flex gap-4">
-                        <a href="#" className="w-10 h-10 bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all">
+                        <a href="https://www.facebook.com/EasternCreekSC/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all">
                             <Facebook size={20} />
                         </a>
-                        <a href="#" className="w-10 h-10 bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all">
+                        <a href="https://www.instagram.com/easterncreekpioneersc/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all">
                             <Instagram size={20} />
-                        </a>
-                        <a href="#" className="w-10 h-10 bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all">
-                            <Twitter size={20} />
                         </a>
                     </div>
                 </div>
@@ -77,7 +74,7 @@ export default function Footer() {
                         <li className="flex items-start gap-3">
                             <MapPin size={20} className="text-secondary shrink-0 mt-1" />
                             <span>
-                                Eastern Creek Reserve<br />
+                                Morreau Reserve<br />
                                 Rooty Hill Road South,<br />
                                 Eastern Creek NSW 2766
                             </span>
