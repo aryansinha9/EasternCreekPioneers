@@ -1,31 +1,19 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import NewsCard from "@/components/NewsCard";
+import { createClient } from "@/lib/supabase/server";
 
-export default function NewsPage() {
-    const newsItems = [
-        {
-            title: "Registration Open for 2026 Season",
-            excerpt: "Join the legacy! Registrations are now open for all age groups, from Under 6s to All Age Men & Women. Secure your spot today.",
-            date: "Feb 10, 2026",
-            imageUrl: "/news-1.jpg",
-            slug: "registration-2026",
-        },
-        {
-            title: "Pre-Season Training Starts Next Week",
-            excerpt: "Dust off your boots! Pre-season training for senior squads begins Tuesday, Feb 20th at Eastern Creek Reserve.",
-            date: "Feb 12, 2026",
-            imageUrl: "/news-2.jpg",
-            slug: "pre-season-start",
-        },
-        {
-            title: "New Club Jersey Revealed",
-            excerpt: "We are proud to unveil our new kit for the 2026 season, featuring a modern take on our classic green and gold stripes.",
-            date: "Jan 28, 2026",
-            imageUrl: "/news-3.jpg",
-            slug: "new-jersey-reveal",
-        },
-    ];
+export const revalidate = 0;
+
+export default async function NewsPage() {
+    const supabase = await createClient();
+    const { data: newsData } = await supabase
+        .from('news')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+    const newsItems = newsData || [];
+
 
     return (
         <main className="min-h-screen flex flex-col font-body text-neutral-900 bg-gray-50">
@@ -40,9 +28,22 @@ export default function NewsPage() {
 
             <section className="flex-grow py-20 px-6 max-w-7xl mx-auto w-full">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {newsItems.map((news, index) => (
-                        <NewsCard key={index} {...news} />
-                    ))}
+                    {newsItems.length > 0 ? (
+                        newsItems.map((news) => (
+                            <NewsCard
+                                key={news.id}
+                                title={news.title}
+                                excerpt={news.excerpt}
+                                date={news.date}
+                                imageUrl={news.image_url || '/placeholder-news.jpg'}
+                                slug={news.slug}
+                            />
+                        ))
+                    ) : (
+                        <div className="col-span-full py-20 text-center text-gray-500 bg-white border border-gray-100 text-lg">
+                            Check back soon for the latest club news!
+                        </div>
+                    )}
                 </div>
             </section>
 

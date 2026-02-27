@@ -1,5 +1,3 @@
-"use client";
-
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import NewsCard from "@/components/NewsCard";
@@ -7,58 +5,28 @@ import MatchResultCard from "@/components/MatchResultCard";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { createClient } from "@/lib/supabase/server";
 
-export default function Home() {
-  const newsItems = [
-    {
-      title: "Registration Open for 2026 Season",
-      excerpt: "Join the legacy! Registrations are now open for all age groups, from Under 6s to All Age Men & Women. Secure your spot today.",
-      date: "Feb 10, 2026",
-      imageUrl: "/news-1.jpg",
-      slug: "registration-2026",
-    },
-    {
-      title: "Pre-Season Training Starts Next Week",
-      excerpt: "Dust off your boots! Pre-season training for senior squads begins Tuesday, Feb 20th at Eastern Creek Reserve.",
-      date: "Feb 12, 2026",
-      imageUrl: "/news-2.jpg",
-      slug: "pre-season-start",
-    },
-    {
-      title: "New Club Jersey Revealed",
-      excerpt: "We are proud to unveil our new kit for the 2026 season, featuring a modern take on our classic green and gold stripes.",
-      date: "Jan 28, 2026",
-      imageUrl: "/news-3.jpg",
-      slug: "new-jersey-reveal",
-    },
-  ];
+export const revalidate = 0;
 
-  const results = [
-    {
-      homeTeam: "Eastern Creek",
-      awayTeam: "Rooty Hill FC",
-      homeScore: 3,
-      awayScore: 1,
-      date: "Aug 24",
-      division: "Premier League",
-    },
-    {
-      homeTeam: "Eastern Creek",
-      awayTeam: "Doonside Hawks",
-      homeScore: 2,
-      awayScore: 2,
-      date: "Aug 24",
-      division: "U16 Div 1",
-    },
-    {
-      homeTeam: "Glenwood Redbacks",
-      awayTeam: "Eastern Creek",
-      homeScore: 0,
-      awayScore: 4,
-      date: "Aug 23",
-      division: "All Age Ladies",
-    },
-  ];
+export default async function Home() {
+  const supabase = await createClient();
+
+  const { data: newsData } = await supabase
+    .from('news')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(3);
+  const newsItems = newsData || [];
+
+  const { data: resultsData } = await supabase
+    .from('results')
+    .select('*')
+    .eq('is_featured', true)
+    .order('created_at', { ascending: false })
+    .limit(3);
+
+  const results = resultsData || [];
 
   return (
     <main className="min-h-screen flex flex-col font-body text-neutral-900 overflow-x-hidden">
@@ -80,9 +48,22 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {newsItems.map((news, index) => (
-              <NewsCard key={index} {...news} />
-            ))}
+            {newsItems.length > 0 ? (
+              newsItems.map((news) => (
+                <NewsCard
+                  key={news.id}
+                  title={news.title}
+                  excerpt={news.excerpt}
+                  date={news.date}
+                  imageUrl={news.image_url || '/placeholder-news.jpg'}
+                  slug={news.slug}
+                />
+              ))
+            ) : (
+              <div className="col-span-full text-center py-12 text-gray-500 bg-white border border-gray-100">
+                No news articles available.
+              </div>
+            )}
           </div>
           <div className="mt-8 text-center md:hidden">
             <Link href="#news" className="flex items-center justify-center text-primary font-bold hover:text-secondary transition-colors">
@@ -106,14 +87,21 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6">
             {results.map((result, index) => (
               <div key={index} className="transform hover:scale-105 transition-transform duration-300">
-                <MatchResultCard {...result} />
+                <MatchResultCard
+                  homeTeam={result.home_team}
+                  awayTeam={result.away_team}
+                  homeScore={result.home_score}
+                  awayScore={result.away_score}
+                  date={result.date}
+                  division={result.division}
+                />
               </div>
             ))}
           </div>
 
           <div className="mt-16 text-center">
-            <Link href="#fixtures" className="inline-block bg-white text-primary font-heading font-bold py-3 px-8 hover:bg-secondary hover:text-primary transition-all shadow-none uppercase tracking-widest">
-              VIEW ALL FIXTURES
+            <Link href="/results" className="inline-block bg-white text-primary font-heading font-bold py-3 px-8 hover:bg-secondary hover:text-primary transition-all shadow-none uppercase tracking-widest">
+              VIEW ALL RESULTS
             </Link>
           </div>
         </div>
