@@ -53,9 +53,6 @@ export default async function SponsorsPage() {
                                     />
                                 </div>
                                 <h3 className="font-heading font-bold text-xl text-primary mb-2 uppercase tracking-wider">{sponsor.title}</h3>
-                                {sponsor.description && (
-                                    <p className="text-gray-600 text-sm font-body">{sponsor.description}</p>
-                                )}
                             </div>
                         ))}
                     </div>

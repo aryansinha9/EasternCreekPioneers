@@ -8,7 +8,6 @@ export async function saveSponsor(formData: FormData) {
 
     const id = formData.get('id') as string | null
     const title = formData.get('title') as string
-    const description = formData.get('description') as string
     const imageFile = formData.get('image') as File | null
 
     let image_url = formData.get('existing_image_url') as string
@@ -45,7 +44,6 @@ export async function saveSponsor(formData: FormData) {
 
     const sponsorData = {
         title,
-        description: description || null,
         image_url: image_url || '',
     }
 

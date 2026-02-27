@@ -8,7 +8,6 @@ import Image from 'next/image'
 type Sponsor = {
     id: string
     title: string
-    description: string | null
     image_url: string
     created_at: string
 }
@@ -41,7 +40,6 @@ export default function SponsorsList({ sponsors }: { sponsors: Sponsor[] }) {
                         <tr className="bg-gray-50 border-b border-gray-200">
                             <th className="p-4 font-heading font-bold text-gray-700 uppercase tracking-wider text-sm">Logo</th>
                             <th className="p-4 font-heading font-bold text-gray-700 uppercase tracking-wider text-sm">Sponsor Name</th>
-                            <th className="p-4 font-heading font-bold text-gray-700 uppercase tracking-wider text-sm">Description</th>
                             <th className="p-4 font-heading font-bold text-gray-700 uppercase tracking-wider text-sm text-right">Actions</th>
                         </tr>
                     </thead>
@@ -60,9 +58,6 @@ export default function SponsorsList({ sponsors }: { sponsors: Sponsor[] }) {
                                     </div>
                                 </td>
                                 <td className="p-4 align-middle font-bold text-gray-900">{sponsor.title}</td>
-                                <td className="p-4 align-middle text-gray-500 text-sm max-w-xs truncate">
-                                    {sponsor.description || <span className="text-gray-300 italic">No description</span>}
-                                </td>
                                 <td className="p-4 align-middle text-right space-x-2">
                                     <Link
                                         href={`/admin/sponsors/edit/${sponsor.id}`}

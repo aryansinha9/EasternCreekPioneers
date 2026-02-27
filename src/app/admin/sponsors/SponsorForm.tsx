@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation'
 type Sponsor = {
     id?: string
     title: string
-    description: string | null
     image_url: string
 }
 
@@ -66,17 +65,6 @@ export default function SponsorForm({ initialData }: { initialData?: Sponsor }) 
                             defaultValue={initialData?.title}
                             placeholder="e.g. Acme Corporation"
                             className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-lg font-medium"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-bold text-gray-700 mb-2">Short Description (Optional)</label>
-                        <textarea
-                            name="description"
-                            rows={3}
-                            defaultValue={initialData?.description || ''}
-                            placeholder="A brief description of the sponsor and their support for the club."
-                            className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-body"
                         />
                     </div>
 
