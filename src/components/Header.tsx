@@ -98,12 +98,12 @@ export default function Header() {
                         </button>
                     </div>
 
-                    <nav className="flex flex-col gap-8">
+                    <nav className="flex flex-col gap-5">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.name}
                                 href={link.href}
-                                className="font-heading text-4xl hover:text-secondary transition-colors border-b border-white/10 pb-4 tracking-wide"
+                                className="font-heading text-2xl sm:text-3xl hover:text-secondary transition-colors border-b border-white/10 pb-3 tracking-wide"
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
                                 {link.name}
@@ -113,7 +113,7 @@ export default function Header() {
                             href="https://playfootball.com.au/football-finder?st=location&lat=-33.8016&lng=150.8516&suburb=Eastern+Creek&state_code=NSW&postcode=2766&age=junior&clubId=74462#infoModal"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="mt-8 bg-secondary text-primary font-heading font-bold py-5 px-6 text-center text-2xl hover:bg-white transition-all shadow-none uppercase tracking-widest block"
+                            className="mt-4 bg-secondary text-primary font-heading font-bold py-4 px-6 text-center text-xl hover:bg-white transition-all shadow-none uppercase tracking-widest block"
                             onClick={() => setIsMobileMenuOpen(false)}
                         >
                             JOIN THE CLUB
