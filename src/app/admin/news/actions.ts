@@ -24,14 +24,9 @@ export async function saveNews(formData: FormData) {
         const fileExt = imageFile.name.split('.').pop()
         const fileName = `${slug}-${Date.now()}.${fileExt}`
 
-        // Convert File to ArrayBuffer/Buffer for Vercel compatibility
-        const arrayBuffer = await imageFile.arrayBuffer()
-        const buffer = Buffer.from(arrayBuffer)
-
         const { error: uploadError } = await supabase.storage
             .from('public_assets')
-            .upload(`news/${fileName}`, buffer, {
-                contentType: imageFile.type,
+            .upload(`news/${fileName}`, imageFile, {
                 cacheControl: '3600',
                 upsert: false,
             })
@@ -44,7 +39,7 @@ export async function saveNews(formData: FormData) {
             image_url = publicUrl
         } else {
             console.error('Supabase Storage Error:', uploadError)
-            throw new Error(`Failed to upload image: ${uploadError.message}`)
+            return { error: `Storage Error: ${uploadError.message}. Did you create the public_assets bucket?` }
         }
     }
 
@@ -59,10 +54,12 @@ export async function saveNews(formData: FormData) {
 
     if (id) {
         // Update existing
-        await supabase.from('news').update(newsData).eq('id', id)
+        const { error: dbError } = await supabase.from('news').update(newsData).eq('id', id)
+        if (dbError) return { error: `DB Update Error: ${dbError.message}` }
     } else {
         // Insert new
-        await supabase.from('news').insert(newsData)
+        const { error: dbError } = await supabase.from('news').insert(newsData)
+        if (dbError) return { error: `DB Insert Error: ${dbError.message}` }
     }
 
     revalidatePath('/admin/news')

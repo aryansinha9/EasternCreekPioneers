@@ -27,8 +27,15 @@ export default function NewsForm({ initialData }: { initialData?: NewsItem }) {
     }
 
     const handleSubmit = (formData: FormData) => {
-        startTransition(() => {
-            saveNews(formData)
+        startTransition(async () => {
+            try {
+                const result = await saveNews(formData)
+                if (result?.error) {
+                    alert(result.error)
+                }
+            } catch (err: any) {
+                alert(`Unexpected error: ${err.message}`)
+            }
         })
     }
 

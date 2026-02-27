@@ -10,27 +10,23 @@ export async function uploadImage(formData: FormData) {
     const alt_text = formData.get('alt_text') as string
 
     if (!file || file.size === 0) {
-        throw new Error('Please select an image to upload.')
+        return { error: 'Please select an image to upload.' }
     }
 
     // Upload to Supabase Storage
     const fileExt = file.name.split('.').pop()
     const fileName = `${Math.random()}-${Date.now()}.${fileExt}`
 
-    // Convert File to ArrayBuffer/Buffer for Vercel
-    const arrayBuffer = await file.arrayBuffer()
-    const buffer = Buffer.from(arrayBuffer)
-
     const { error: uploadError } = await supabase.storage
         .from('public_assets')
-        .upload(`gallery/${fileName}`, buffer, {
-            contentType: file.type,
+        .upload(`gallery/${fileName}`, file, {
             cacheControl: '3600',
             upsert: false,
         })
 
     if (uploadError) {
-        throw new Error(`Upload failed: ${uploadError.message}`)
+        console.error('Supabase Storage Error:', uploadError)
+        return { error: `Storage Error: ${uploadError.message}. Did you create the public_assets bucket?` }
     }
 
     // Get public URL
@@ -39,13 +35,19 @@ export async function uploadImage(formData: FormData) {
         .getPublicUrl(`gallery/${fileName}`)
 
     // Insert into gallery table
-    await supabase.from('gallery').insert({
+    const { error: dbError } = await supabase.from('gallery').insert({
         image_url: publicUrl,
         alt_text: alt_text || 'Gallery Image',
     })
 
+    if (dbError) {
+        return { error: `DB Insert Error: ${dbError.message}` }
+    }
+
     revalidatePath('/admin/gallery')
     revalidatePath('/gallery')
+
+    return { success: true }
 }
 
 export async function deleteImage(id: string, imageUrl: string) {
