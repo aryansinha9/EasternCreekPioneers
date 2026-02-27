@@ -37,6 +37,9 @@ export async function saveNews(formData: FormData) {
                 .getPublicUrl(`news/${fileName}`)
 
             image_url = publicUrl
+        } else {
+            console.error('Supabase Storage Error:', uploadError)
+            throw new Error(`Failed to upload image: ${uploadError.message}`)
         }
     }
 
