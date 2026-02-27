@@ -47,6 +47,10 @@ export default function AdminLayout({
                         <ImageIcon size={20} />
                         Gallery
                     </Link>
+                    <Link href="/admin/sponsors" className="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-primary font-medium transition-colors">
+                        <Briefcase size={20} />
+                        Sponsors
+                    </Link>
                 </nav>
 
                 <div className="p-4 border-t border-gray-200">
