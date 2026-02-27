@@ -4,6 +4,7 @@ import { useTransition, useState } from 'react'
 import { saveNews } from './actions'
 import { ArrowLeft, Save } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 type NewsItem = {
     id?: string
@@ -15,6 +16,7 @@ type NewsItem = {
 }
 
 export default function NewsForm({ initialData }: { initialData?: NewsItem }) {
+    const router = useRouter()
     const [isPending, startTransition] = useTransition()
     const [previewImage, setPreviewImage] = useState<string | null>(initialData?.image_url || null)
 
@@ -32,6 +34,8 @@ export default function NewsForm({ initialData }: { initialData?: NewsItem }) {
                 const result = await saveNews(formData)
                 if (result?.error) {
                     alert(result.error)
+                } else {
+                    router.push('/admin/news')
                 }
             } catch (err: any) {
                 alert(`Unexpected error: ${err.message}`)

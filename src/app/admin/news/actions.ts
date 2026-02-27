@@ -2,7 +2,6 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 
 export async function saveNews(formData: FormData) {
     const supabase = await createClient()
@@ -66,7 +65,7 @@ export async function saveNews(formData: FormData) {
     revalidatePath('/')
     revalidatePath('/news')
 
-    redirect('/admin/news')
+    return { success: true }
 }
 
 export async function deleteNews(id: string, imageUrl: string) {
