@@ -96,17 +96,22 @@ export default function Footer() {
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm font-body">
-                <div>&copy; {new Date().getFullYear()} Eastern Creek Soccer Club. All rights reserved.</div>
-                <div className="mt-4 md:mt-0"><a href="/admin" className="hover:text-white transition-colors">Admin Login</a></div>
-            </div>
+            <div className="max-w-7xl mx-auto px-6 mt-16 pt-8 pb-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm font-body gap-6 md:gap-0">
+                <div className="flex-1 text-center md:text-left order-2 md:order-1">
+                    &copy; {new Date().getFullYear()} Eastern Creek Soccer Club. All rights reserved.
+                </div>
 
-            <div className="footer-infinity-container">
-                <a href="https://www.anantasystems.com.au/" target="_blank" rel="noopener noreferrer" className="infinity-link" aria-label="Created by Ananta Systems, opens in a new tab">
-                    <svg className="infinity-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 1 0 0-8c-2 0-4 1.33-6 4Z" />
-                    </svg>
-                </a>
+                <div className="order-1 md:order-2 flex justify-center">
+                    <a href="https://www.anantasystems.com.au/" target="_blank" rel="noopener noreferrer" className="infinity-link" aria-label="Created by Ananta Systems, opens in a new tab">
+                        <svg className="infinity-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 1 0 0-8c-2 0-4 1.33-6 4Z" />
+                        </svg>
+                    </a>
+                </div>
+
+                <div className="flex-1 text-center md:text-right order-3 md:mt-0">
+                    <a href="/admin" className="hover:text-white transition-colors">Admin Login</a>
+                </div>
             </div>
         </footer>
     );
