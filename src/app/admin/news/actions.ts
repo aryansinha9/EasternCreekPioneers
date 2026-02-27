@@ -24,9 +24,14 @@ export async function saveNews(formData: FormData) {
         const fileExt = imageFile.name.split('.').pop()
         const fileName = `${slug}-${Date.now()}.${fileExt}`
 
+        // Convert File to ArrayBuffer/Buffer for Vercel compatibility
+        const arrayBuffer = await imageFile.arrayBuffer()
+        const buffer = Buffer.from(arrayBuffer)
+
         const { error: uploadError } = await supabase.storage
             .from('public_assets')
-            .upload(`news/${fileName}`, imageFile, {
+            .upload(`news/${fileName}`, buffer, {
+                contentType: imageFile.type,
                 cacheControl: '3600',
                 upsert: false,
             })

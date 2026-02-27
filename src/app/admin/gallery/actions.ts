@@ -17,9 +17,14 @@ export async function uploadImage(formData: FormData) {
     const fileExt = file.name.split('.').pop()
     const fileName = `${Math.random()}-${Date.now()}.${fileExt}`
 
+    // Convert File to ArrayBuffer/Buffer for Vercel
+    const arrayBuffer = await file.arrayBuffer()
+    const buffer = Buffer.from(arrayBuffer)
+
     const { error: uploadError } = await supabase.storage
         .from('public_assets')
-        .upload(`gallery/${fileName}`, file, {
+        .upload(`gallery/${fileName}`, buffer, {
+            contentType: file.type,
             cacheControl: '3600',
             upsert: false,
         })
