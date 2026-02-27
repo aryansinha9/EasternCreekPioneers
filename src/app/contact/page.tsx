@@ -1,5 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SponsorEOITab from "@/components/SponsorEOITab";
+import ContactForm from "@/components/ContactForm";
 import { Mail, MapPin, Phone } from "lucide-react";
 
 export default function ContactPage() {
@@ -56,18 +58,9 @@ export default function ContactPage() {
                         </div>
                     </div>
 
-                    {/* Map Embed */}
-                    <div className="h-full min-h-[400px] w-full bg-gray-200 overflow-hidden shadow-md border border-gray-100">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3458.83190348525!2d150.8552659!3d-33.7778925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b129b00130d564f%3A0xf92d8bbb81b1aa95!2seastern%20creek%20pioneers%20soccer%20club!5e1!3m2!1sen!2sau!4v1772148066105!5m2!1sen!2sau"
-                            width="100%"
-                            height="100%"
-                            style={{ border: 0, minHeight: "400px" }}
-                            allowFullScreen={true}
-                            loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
-                            className="w-full h-full"
-                        ></iframe>
+                    {/* Contact Form */}
+                    <div className="w-full">
+                        <ContactForm />
                     </div>
                 </div>
             </section>
@@ -82,21 +75,7 @@ export default function ContactPage() {
                         </p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {/* Sponsor EOI */}
-                        <div className="bg-white p-10 border-t-4 border-secondary hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-center">
-                            <h3 className="font-heading text-3xl font-bold text-primary mb-4">INTERESTED IN SPONSORING?</h3>
-                            <p className="font-body text-gray-600 mb-8 flex-grow">
-                                Support the local community and get great exposure for your business. Apply for our Sponsorship Expression of Interest (EOI).
-                            </p>
-                            <a
-                                href="https://app.360player.com/registration/ecpsc/29ca5f36-bcb1-42a9-b477-bfbdecb7a8d8"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="bg-secondary text-primary font-heading font-bold text-xl py-4 px-8 hover:bg-primary hover:text-white transition-all uppercase tracking-widest"
-                            >
-                                SPONSOR EOI
-                            </a>
-                        </div>
+                        <SponsorEOITab />
 
                         {/* Coach EOI */}
                         <div className="bg-white p-10 border-t-4 border-secondary hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-center">
@@ -118,6 +97,6 @@ export default function ContactPage() {
             </section>
 
             <Footer />
-        </main>
+        </main >
     );
 }

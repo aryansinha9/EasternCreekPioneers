@@ -1,6 +1,14 @@
 import Link from 'next/link'
 import { logout } from './login/actions'
-import { Trophy, Image as ImageIcon, FileText, LayoutDashboard, LogOut, Home } from 'lucide-react'
+import { Trophy, Image as ImageIcon, FileText, LayoutDashboard, LogOut, Home, Briefcase } from 'lucide-react'
+
+const navItems = [
+    { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+    { name: 'Results', href: '/admin/results', icon: Trophy },
+    { name: 'News', href: '/admin/news', icon: FileText },
+    { name: 'Gallery', href: '/admin/gallery', icon: ImageIcon },
+    { name: 'Sponsors', href: '/admin/sponsors', icon: Briefcase },
+];
 
 export default function AdminLayout({
     children,
@@ -78,6 +86,9 @@ export default function AdminLayout({
                         </Link>
                         <Link href="/admin/gallery" className="flex whitespace-nowrap items-center gap-2 px-3 py-1.5 text-gray-700 bg-white border border-gray-200 hover:text-primary font-medium text-sm transition-colors rounded-sm flex-shrink-0">
                             <ImageIcon size={14} /> Gallery
+                        </Link>
+                        <Link href="/admin/sponsors" className="flex whitespace-nowrap items-center gap-2 px-3 py-1.5 text-gray-700 bg-white border border-gray-200 hover:text-primary font-medium text-sm transition-colors rounded-sm flex-shrink-0">
+                            <Briefcase size={14} /> Sponsors
                         </Link>
                     </div>
                 </div>
