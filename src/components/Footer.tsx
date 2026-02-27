@@ -62,7 +62,7 @@ export default function Footer() {
                         <li><a href="/about" className="hover:text-white transition-colors">About Us</a></li>
                         <li><a href="/teams" className="hover:text-white transition-colors">Our Teams</a></li>
                         <li><a href="/registration-info" className="hover:text-white transition-colors">Registration Info</a></li>
-                        <li><a href="/fixtures" className="hover:text-white transition-colors">Fixtures & Results</a></li>
+                        <li><a href="/results" className="hover:text-white transition-colors">Fixtures & Results</a></li>
                         <li><a href="/policies" className="hover:text-white transition-colors">Club Policies</a></li>
                     </ul>
                 </div>
@@ -96,8 +96,9 @@ export default function Footer() {
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-white/10 text-center text-gray-500 text-sm font-body">
-                &copy; {new Date().getFullYear()} Eastern Creek Soccer Club. All rights reserved.
+            <div className="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm font-body">
+                <div>&copy; {new Date().getFullYear()} Eastern Creek Soccer Club. All rights reserved.</div>
+                <div className="mt-4 md:mt-0"><a href="/admin" className="hover:text-white transition-colors">Admin Login</a></div>
             </div>
         </footer>
     );
