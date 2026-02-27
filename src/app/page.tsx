@@ -4,6 +4,7 @@ import NewsCard from "@/components/NewsCard";
 import MatchResultCard from "@/components/MatchResultCard";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 
@@ -18,6 +19,12 @@ export default async function Home() {
     .order('created_at', { ascending: false })
     .limit(3);
   const newsItems = newsData || [];
+
+  const { data: sponsorsData } = await supabase
+    .from('sponsors')
+    .select('id, title, image_url')
+    .order('created_at', { ascending: true });
+  const sponsors = sponsorsData || [];
 
   const { data: resultsData } = await supabase
     .from('results')
@@ -129,7 +136,38 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Sponsors Section */}
+      {
+        sponsors.length > 0 && (
+          <section className="py-20 bg-white border-t border-gray-100">
+            <div className="max-w-7xl mx-auto px-6 text-center">
+              <h2 className="heading-section text-4xl mb-12">OUR SPONSORS</h2>
+
+              <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
+                {sponsors.map((sponsor) => (
+                  <Link key={sponsor.id} href="/sponsors" className="relative h-20 w-32 md:h-24 md:w-40 grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100 group">
+                    <Image
+                      src={sponsor.image_url}
+                      alt={sponsor.title}
+                      fill
+                      className="object-contain mix-blend-multiply group-hover:scale-105 transition-transform"
+                      sizes="(max-width: 768px) 128px, 160px"
+                    />
+                  </Link>
+                ))}
+              </div>
+
+              <div className="mt-12">
+                <Link href="/sponsors" className="text-gray-500 hover:text-primary font-bold transition-colors text-sm uppercase tracking-wider">
+                  View All Sponsors &rarr;
+                </Link>
+              </div>
+            </div>
+          </section>
+        )
+      }
+
       <Footer />
-    </main>
+    </main >
   );
 }

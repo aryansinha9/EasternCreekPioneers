@@ -59,9 +59,24 @@ export default function ContactPage() {
                     </div>
 
                     {/* Contact Form */}
+                    {/* Contact Form */}
                     <div className="w-full">
                         <ContactForm />
                     </div>
+                </div>
+
+                {/* Map Embed - Reinstated */}
+                <div className="w-full mt-12 bg-gray-200 overflow-hidden shadow-md border border-gray-100 rounded-sm">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3458.831904564927!2d150.85269097570483!3d-33.77789247326152!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b129b00130d564f%3A0xf92d8bbb81b1aa95!2seastern%20creek%20pioneers%20soccer%20club!5e1!3m2!1sen!2sau!4v1772162385905!5m2!1sen!2sau"
+                        width="100%"
+                        height="450"
+                        style={{ border: 0 }}
+                        allowFullScreen={true}
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        className="w-full object-cover"
+                    ></iframe>
                 </div>
             </section>
 
