@@ -6,13 +6,14 @@ export const metadata = {
     title: 'Edit Section | Admin Dashboard',
 }
 
-export default async function EditRegistrationPage({ params }: { params: { id: string } }) {
+export default async function EditRegistrationPage({ params }: { params: Promise<{ id: string }> }) {
     const supabase = await createClient()
+    const { id } = await params;
 
     const { data: section } = await supabase
         .from('registration_sections')
         .select('*')
-        .eq('id', params.id)
+        .eq('id', id)
         .single()
 
     if (!section) {

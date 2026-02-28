@@ -23,8 +23,8 @@ export default function Hero() {
             <div className="relative z-10 text-left px-6 max-w-7xl mx-auto w-full flex flex-col items-start h-full justify-center pt-16">
                 <div className="animate-fade-in-up drop-shadow-lg mb-6">
                     <h1 className="heading-hero text-white leading-none">
-                        <span className="block text-4xl md:text-6xl lg:text-7xl mb-2">JOIN US AND</span>
-                        <span className="block text-secondary text-5xl md:text-7xl lg:text-8xl mt-[-5px]">PLAY THE CREEK WAY</span>
+                        <span className="block text-4xl md:text-6xl lg:text-7xl mb-2 tracking-wide md:tracking-wider">JOIN US AND</span>
+                        <span className="block text-secondary text-5xl md:text-7xl lg:text-8xl mt-[-5px] tracking-wide md:tracking-wider">PLAY THE CREEK WAY</span>
                     </h1>
                 </div>
                 <p className="font-body text-base md:text-xl text-gray-100 mb-8 max-w-3xl animate-fade-in-up delay-100 font-medium leading-relaxed drop-shadow-md">
