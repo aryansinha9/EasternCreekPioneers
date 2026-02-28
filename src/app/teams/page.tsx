@@ -1,7 +1,19 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { createClient } from "@/lib/supabase/server";
 
-export default function TeamsPage() {
+export const revalidate = 0;
+
+export default async function TeamsPage() {
+    const supabase = await createClient();
+
+    const { data: sectionsData } = await supabase
+        .from('registration_sections')
+        .select('*')
+        .order('order_index', { ascending: true });
+
+    const sections = sectionsData || [];
+
     return (
         <main className="min-h-screen flex flex-col font-body text-neutral-900 bg-gray-50">
             <Header />
@@ -17,72 +29,47 @@ export default function TeamsPage() {
             {/* Content */}
             <section className="flex-grow py-20 px-6 max-w-7xl mx-auto w-full space-y-16">
 
-                {/* 2026 Premiere League */}
-                <div className="bg-white p-10 border border-gray-100 shadow-sm flex flex-col md:flex-row items-center gap-10">
-                    <div className="flex-1">
-                        <h2 className="heading-section text-primary text-4xl mb-4">2026 PREMIERE LEAGUE</h2>
-                        <p className="font-body text-gray-600 mb-6 text-lg">
-                            Represent Eastern Creek at the highest local level. We are building a competitive and dedicated squad for the upcoming season.
-                        </p>
-                        <a
-                            href="https://app.360player.com/registration/ecpsc/ede1b5e3-33b9-4b61-a299-0656575508e8"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-block bg-secondary text-primary font-heading font-bold py-4 px-8 hover:bg-primary hover:text-white transition-all uppercase tracking-widest"
-                        >
-                            PREMIERE LEAGUE EOI
-                        </a>
-                    </div>
-                </div>
+                {sections.length > 0 ? (
+                    sections.map((section, index) => {
+                        // Alternate styling between odd and even sections 
+                        const isEven = index % 2 === 0;
 
-                {/* Youth Teams */}
-                <div className="bg-primary text-white p-10 border-l-8 border-secondary flex flex-col md:flex-row items-center gap-10 shadow-md">
-                    <div className="flex-1">
-                        <h2 className="heading-section text-secondary text-4xl mb-4">YOUTH TEAMS</h2>
-                        <p className="font-body text-gray-200 mb-6 text-lg">
-                            Elite Youth program overseen by Joga Bonito Football Academy director Carlos Ribeiro. We are seeking EOIs for positions in Division 1 teams for 2026.
-                        </p>
-                        <ul className="grid grid-cols-2 gap-4 font-heading text-xl mb-8">
-                            <li className="flex items-center gap-2">• U5 - U6</li>
-                            <li className="flex items-center gap-2">• U7 - U11</li>
-                            <li className="flex items-center gap-2">• U12 - U14</li>
-                            <li className="flex items-center gap-2">• U15 - U18</li>
-                        </ul>
-                        <a
-                            href="https://app.360player.com/registration/ecpsc/6d593602-518a-4192-8582-52f81ce93cef"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-block bg-white text-primary font-heading font-bold py-4 px-8 hover:bg-secondary hover:text-primary transition-all uppercase tracking-widest"
-                        >
-                            YOUTH TEAM EOI
-                        </a>
-                    </div>
-                </div>
+                        return (
+                            <div
+                                key={section.id}
+                                className={`p-10 flex flex-col md:flex-row items-center gap-10 shadow-sm ${isEven
+                                        ? "bg-white border border-gray-100"
+                                        : "bg-primary text-white border-l-8 border-secondary shadow-md"
+                                    }`}
+                            >
+                                <div className="flex-1">
+                                    <h2 className={`heading-section text-4xl mb-4 ${isEven ? 'text-primary' : 'text-secondary'}`}>
+                                        {section.title}
+                                    </h2>
+                                    <p className={`font-body mb-8 text-lg ${isEven ? 'text-gray-600' : 'text-gray-200'}`}>
+                                        {section.description}
+                                    </p>
 
-                {/* Elite Squad */}
-                <div className="bg-white p-10 border border-gray-100 shadow-sm flex flex-col md:flex-row items-center gap-10">
-                    <div className="flex-1">
-                        <h2 className="heading-section text-primary text-4xl mb-4">ELITE SQUAD (U13's - U14's)</h2>
-                        <p className="font-body text-gray-600 mb-6 text-lg">
-                            Elite Youth program overseen by Joga Bonito Football Academy director Carlos Ribeiro. We are seeking EOIs for positions in Division 1 teams for 2026.
-                        </p>
-                        <ul className="grid grid-cols-2 gap-4 font-heading text-xl text-primary mb-8">
-                            <li className="flex items-center gap-2">• U5 - U6</li>
-                            <li className="flex items-center gap-2">• U7 - U11</li>
-                            <li className="flex items-center gap-2">• U12 - U14</li>
-                            <li className="flex items-center gap-2">• U15 - U18</li>
-                        </ul>
-                        <a
-                            href="https://app.360player.com/registration/ecpsc/6d593602-518a-4192-8582-52f81ce93cef"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-block bg-secondary text-primary font-heading font-bold py-4 px-8 hover:bg-primary hover:text-white transition-all uppercase tracking-widest"
-                        >
-                            ELITE SQUAD EOI
-                        </a>
+                                    <a
+                                        href={section.button_link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={`inline-block font-heading font-bold py-4 px-8 transition-all uppercase tracking-widest ${isEven
+                                                ? "bg-secondary text-primary hover:bg-primary hover:text-white"
+                                                : "bg-white text-primary hover:bg-secondary hover:text-primary"
+                                            }`}
+                                    >
+                                        {section.button_label}
+                                    </a>
+                                </div>
+                            </div>
+                        );
+                    })
+                ) : (
+                    <div className="bg-white p-10 text-center text-gray-500 border border-gray-100">
+                        No registration sections currently available. Please check back later.
                     </div>
-                </div>
-
+                )}
             </section>
 
             <Footer />
