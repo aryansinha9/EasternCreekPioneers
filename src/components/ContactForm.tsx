@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { submitContactForm } from '@/app/actions/contact'
 
 export default function ContactForm() {
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -14,21 +13,32 @@ export default function ContactForm() {
         setErrorMessage('')
 
         try {
-            const formData = new FormData(e.currentTarget)
-            const result = await submitContactForm(formData)
+            const form = e.currentTarget
+            const formData = new FormData(form)
+            // Use the provided access key directly, or fallback to env variable if set
+            const accessKey = "ecbd7756-3874-4227-b0c4-c7b38a52821b"
+            formData.append('access_key', accessKey)
+            formData.append('subject', `New Inquiry from Eastern Creek SC Website - ${formData.get('name')}`)
+            formData.append('from_name', 'Eastern Creek SC Form')
+
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+
+            const result = await response.json()
 
             setIsSubmitting(false)
 
-            if (result?.success) {
+            if (response.ok && result.success) {
                 setIsSuccess(true)
                 // Revert success message after 5 seconds
                 setTimeout(() => {
                     setIsSuccess(false)
-                    const form = document.getElementById('contact-form') as HTMLFormElement
                     if (form) form.reset()
                 }, 5000)
             } else {
-                setErrorMessage(result?.error || 'Failed to send message. Please try again.')
+                setErrorMessage(result.message || 'Failed to send message. Please try again.')
             }
         } catch (error) {
             setIsSubmitting(false)
@@ -43,7 +53,7 @@ export default function ContactForm() {
             {isSuccess ? (
                 <div className="bg-green-50 text-green-800 border-l-4 border-green-500 p-6 flex flex-col items-center justify-center flex-grow text-center animate-fade-in-up">
                     <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                        <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <svg className="w-16 h-16 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                         </svg>
                     </div>
