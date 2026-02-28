@@ -40,9 +40,9 @@ export default function Header() {
 
     const navLinks = [
         { name: "HOME", href: "/" },
-        { name: "TEAMS", href: "/teams" },
+        { name: "REGISTRATION", href: "/teams" },
         { name: "NEWS", href: "/news" },
-        { name: "RESULTS", href: "/results" },
+        { name: "FIXTURES & RESULTS", href: "/fixtures" },
         { name: "GALLERY", href: "/gallery" },
         { name: "SPONSORS", href: "/sponsors" },
         { name: "CONTACT", href: "/contact" },
@@ -56,8 +56,8 @@ export default function Header() {
                     }`}
             >
                 <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-                    {/* Logo (Top Left) */}
-                    <Link href="/" className="relative w-48 h-16 md:w-64 md:h-20 flex items-center">
+                    {/* Logo (Left) */}
+                    <Link href="/" className="relative w-48 h-16 md:w-64 md:h-20 flex items-center shrink-0">
                         <Image
                             src="/EasternCHomelogo.svg"
                             alt="Eastern Creek Soccer Club"
@@ -67,43 +67,62 @@ export default function Header() {
                         />
                     </Link>
 
-                    {/* Hamburger Menu Button (Always Visible) */}
+                    {/* Desktop Navigation (Center/Right) */}
+                    <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+                        {navLinks.map((link) => (
+                            <Link
+                                key={link.name}
+                                href={link.href}
+                                className="font-heading text-lg lg:text-xl text-white hover:text-secondary transition-colors tracking-wide"
+                            >
+                                {link.name}
+                            </Link>
+                        ))}
+                        <a
+                            href="https://playfootball.com.au/football-finder?st=location&lat=-33.8016&lng=150.8516&suburb=Eastern+Creek&state_code=NSW&postcode=2766&age=junior&clubId=74462#infoModal"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-secondary text-primary font-heading font-bold py-2 px-5 rounded-sm lg:text-lg hover:bg-white transition-all uppercase tracking-widest whitespace-nowrap"
+                        >
+                            JOIN
+                        </a>
+                    </nav>
+
+                    {/* Mobile Hamburger Button */}
                     <button
-                        className="text-white focus:outline-none hover:text-secondary transition-colors"
+                        className="lg:hidden text-white focus:outline-none hover:text-secondary transition-colors"
                         onClick={() => setIsMobileMenuOpen(true)}
                         aria-label="Open Menu"
                     >
-                        <Menu size={40} strokeWidth={1.5} />
+                        <Menu size={32} strokeWidth={2} />
                     </button>
                 </div>
             </header>
 
-            {/* Mobile/Global Drawer */}
-            <div className={`fixed inset-0 z-[60] ${isMobileMenuOpen ? "pointer-events-auto" : "pointer-events-none"}`}>
-                {/* Overlay - Fade In/Out */}
+            {/* Mobile Navigation Drawer */}
+            <div className={`fixed inset-0 z-[60] lg:hidden ${isMobileMenuOpen ? "pointer-events-auto" : "pointer-events-none"}`}>
                 <div
                     className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-500 ease-in-out ${isMobileMenuOpen ? "opacity-100" : "opacity-0"
                         }`}
                     onClick={() => setIsMobileMenuOpen(false)}
                 />
 
-                {/* Drawer - Slide In/Out */}
                 <div
-                    className={`absolute right-0 top-0 bottom-0 w-full md:w-[400px] bg-primary text-white p-10 shadow-2xl flex flex-col border-l border-white/10 transform transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1) ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+                    className={`absolute right-0 top-0 bottom-0 w-[80%] max-w-sm bg-primary text-white p-8 shadow-2xl flex flex-col border-l border-white/10 transform transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1) ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
                         }`}
                 >
-                    <div className="flex justify-end mb-12">
+                    <div className="flex justify-end mb-8">
                         <button onClick={() => setIsMobileMenuOpen(false)} className="text-white hover:text-secondary transition-colors">
-                            <X size={40} strokeWidth={1.5} />
+                            <X size={32} strokeWidth={2} />
                         </button>
                     </div>
 
-                    <nav className="flex flex-col gap-5">
+                    <nav className="flex flex-col gap-6">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.name}
                                 href={link.href}
-                                className="font-heading text-2xl sm:text-3xl hover:text-secondary transition-colors border-b border-white/10 pb-3 tracking-wide"
+                                className="font-heading text-2xl hover:text-secondary transition-colors border-b border-white/10 pb-4 tracking-wide"
                                 onClick={() => setIsMobileMenuOpen(false)}
                             >
                                 {link.name}
@@ -113,18 +132,15 @@ export default function Header() {
                             href="https://playfootball.com.au/football-finder?st=location&lat=-33.8016&lng=150.8516&suburb=Eastern+Creek&state_code=NSW&postcode=2766&age=junior&clubId=74462#infoModal"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="mt-4 bg-secondary text-primary font-heading font-bold py-4 px-6 text-center text-xl hover:bg-white transition-all shadow-none uppercase tracking-widest block"
+                            className="mt-6 bg-secondary text-primary font-heading font-bold py-4 px-6 text-center text-xl hover:bg-white transition-all uppercase tracking-widest block rounded-sm"
                             onClick={() => setIsMobileMenuOpen(false)}
                         >
                             JOIN THE CLUB
                         </a>
                     </nav>
-
-                    <div className="mt-auto text-center text-white/40 text-sm">
-                        &copy; 2026 Eastern Creek SC
-                    </div>
                 </div>
             </div>
         </>
     );
 }
+

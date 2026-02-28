@@ -35,10 +35,6 @@ export default function AdminLayout({
                         <LayoutDashboard size={20} />
                         Dashboard
                     </Link>
-                    <Link href="/admin/results" className="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-primary font-medium transition-colors">
-                        <Trophy size={20} />
-                        Results
-                    </Link>
                     <Link href="/admin/news" className="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-primary font-medium transition-colors">
                         <FileText size={20} />
                         News
@@ -81,9 +77,6 @@ export default function AdminLayout({
                         </Link>
                         <Link href="/admin" className="flex whitespace-nowrap items-center gap-2 px-3 py-1.5 text-gray-700 bg-white border border-gray-200 hover:text-primary font-medium text-sm transition-colors rounded-sm flex-shrink-0">
                             <LayoutDashboard size={14} /> Dashboard
-                        </Link>
-                        <Link href="/admin/results" className="flex whitespace-nowrap items-center gap-2 px-3 py-1.5 text-gray-700 bg-white border border-gray-200 hover:text-primary font-medium text-sm transition-colors rounded-sm flex-shrink-0">
-                            <Trophy size={14} /> Results
                         </Link>
                         <Link href="/admin/news" className="flex whitespace-nowrap items-center gap-2 px-3 py-1.5 text-gray-700 bg-white border border-gray-200 hover:text-primary font-medium text-sm transition-colors rounded-sm flex-shrink-0">
                             <FileText size={14} /> News

@@ -60,9 +60,8 @@ export default function Footer() {
                     <h3 className="font-heading text-xl mb-6 text-secondary tracking-wide">QUICK LINKS</h3>
                     <ul className="space-y-3 font-body text-gray-300">
                         <li><a href="/about" className="hover:text-white transition-colors">About Us</a></li>
-                        <li><a href="/teams" className="hover:text-white transition-colors">Our Teams</a></li>
-                        <li><a href="/registration-info" className="hover:text-white transition-colors">Registration Info</a></li>
-                        <li><a href="/results" className="hover:text-white transition-colors">Fixtures & Results</a></li>
+                        <li><a href="/teams" className="hover:text-white transition-colors">Registration</a></li>
+                        <li><a href="/fixtures" className="hover:text-white transition-colors">Fixtures & Results</a></li>
                         <li><a href="/policies" className="hover:text-white transition-colors">Club Policies</a></li>
                     </ul>
                 </div>

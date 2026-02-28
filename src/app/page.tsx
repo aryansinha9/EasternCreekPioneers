@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import NewsCard from "@/components/NewsCard";
-import MatchResultCard from "@/components/MatchResultCard";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import Image from "next/image";
@@ -25,15 +24,6 @@ export default async function Home() {
     .select('id, title, image_url')
     .order('created_at', { ascending: true });
   const sponsors = sponsorsData || [];
-
-  const { data: resultsData } = await supabase
-    .from('results')
-    .select('*')
-    .eq('is_featured', true)
-    .order('created_at', { ascending: false })
-    .limit(3);
-
-  const results = resultsData || [];
 
   return (
     <main className="min-h-screen flex flex-col font-body text-neutral-900 overflow-x-hidden">
@@ -80,36 +70,23 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Match Results Section */}
+      {/* Match Center Section */}
       <section className="py-24 bg-primary text-white relative overflow-hidden">
         {/* Decorative Background Pattern */}
         <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="font-heading text-5xl md:text-6xl font-bold mb-4 text-white uppercase tracking-wide">Match Center</h2>
-            <p className="text-gray-300 text-lg">Recent results from around the grounds.</p>
+        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
+          <div className="mb-10">
+            <h2 className="font-heading text-5xl md:text-6xl font-bold mb-6 text-white uppercase tracking-wide">CLUB COMMUNICATIONS</h2>
+            <p className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+              Stay connected with your team and get the latest updates. Join us on our official club communication platform.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6">
-            {results.map((result, index) => (
-              <div key={index} className="transform hover:scale-105 transition-transform duration-300">
-                <MatchResultCard
-                  homeTeam={result.home_team}
-                  awayTeam={result.away_team}
-                  homeScore={result.home_score}
-                  awayScore={result.away_score}
-                  date={result.date}
-                  division={result.division}
-                />
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-16 text-center">
-            <Link href="/results" className="inline-block bg-white text-primary font-heading font-bold py-3 px-8 hover:bg-secondary hover:text-primary transition-all shadow-none uppercase tracking-widest">
-              VIEW ALL RESULTS
-            </Link>
+          <div className="mt-8">
+            <a href="https://360player.com/en-au" target="_blank" rel="noopener noreferrer" className="inline-block bg-white text-primary font-heading font-bold py-4 px-10 text-lg hover:bg-secondary hover:text-primary transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,215,0,0.5)] transform hover:-translate-y-1 uppercase tracking-widest">
+              JOIN PLAY360 NOW
+            </a>
           </div>
         </div>
       </section>
