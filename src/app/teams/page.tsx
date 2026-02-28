@@ -38,12 +38,12 @@ export default async function TeamsPage() {
                             <div
                                 key={section.id}
                                 className={`p-10 flex flex-col md:flex-row items-center gap-10 shadow-sm ${isEven
-                                        ? "bg-white border border-gray-100"
-                                        : "bg-primary text-white border-l-8 border-secondary shadow-md"
+                                    ? "bg-white border border-gray-100"
+                                    : "bg-primary text-white border-l-8 border-secondary shadow-md"
                                     }`}
                             >
                                 <div className="flex-1">
-                                    <h2 className={`heading-section text-4xl mb-4 ${isEven ? 'text-primary' : 'text-secondary'}`}>
+                                    <h2 className={`heading-section text-4xl mb-4 ${isEven ? 'text-primary' : 'text-white'}`}>
                                         {section.title}
                                     </h2>
                                     <p className={`font-body mb-8 text-lg ${isEven ? 'text-gray-600' : 'text-gray-200'}`}>
@@ -55,8 +55,8 @@ export default async function TeamsPage() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className={`inline-block font-heading font-bold py-4 px-8 transition-all uppercase tracking-widest ${isEven
-                                                ? "bg-secondary text-primary hover:bg-primary hover:text-white"
-                                                : "bg-white text-primary hover:bg-secondary hover:text-primary"
+                                            ? "bg-secondary text-primary hover:bg-primary hover:text-white"
+                                            : "bg-white text-primary hover:bg-secondary hover:text-primary"
                                             }`}
                                     >
                                         {section.button_label}
