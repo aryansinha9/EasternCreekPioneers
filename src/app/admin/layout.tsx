@@ -51,6 +51,10 @@ export default function AdminLayout({
                         <ClipboardList size={20} />
                         Registration
                     </Link>
+                    <Link href="/admin/pages" className="flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-primary font-medium transition-colors">
+                        <FileText size={20} />
+                        Pages
+                    </Link>
                 </nav>
 
                 <div className="p-4 border-t border-gray-200">
@@ -93,6 +97,9 @@ export default function AdminLayout({
                         </Link>
                         <Link href="/admin/registration" className="flex whitespace-nowrap items-center gap-2 px-3 py-1.5 text-gray-700 bg-white border border-gray-200 hover:text-primary font-medium text-sm transition-colors rounded-sm flex-shrink-0">
                             <ClipboardList size={14} /> Registration
+                        </Link>
+                        <Link href="/admin/pages" className="flex whitespace-nowrap items-center gap-2 px-3 py-1.5 text-gray-700 bg-white border border-gray-200 hover:text-primary font-medium text-sm transition-colors rounded-sm flex-shrink-0">
+                            <FileText size={14} /> Pages
                         </Link>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
@@ -10,6 +11,7 @@ export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
+    const pathname = usePathname();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -40,11 +42,13 @@ export default function Header() {
 
     const navLinks = [
         { name: "HOME", href: "/" },
+        { name: "ABOUT", href: "/about" },
         { name: "REGISTRATION", href: "/teams" },
         { name: "NEWS", href: "/news" },
         { name: "FIXTURES & RESULTS", href: "/fixtures" },
         { name: "GALLERY", href: "/gallery" },
         { name: "SPONSORS", href: "/sponsors" },
+        { name: "CLUB POLICIES", href: "/policies" },
         { name: "CONTACT", href: "/contact" },
     ];
 
@@ -69,15 +73,19 @@ export default function Header() {
 
                     {/* Desktop Navigation (Center/Right) */}
                     <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.name}
-                                href={link.href}
-                                className="font-heading text-lg lg:text-xl text-white hover:text-secondary transition-colors tracking-wide"
-                            >
-                                {link.name}
-                            </Link>
-                        ))}
+                        {navLinks.map((link) => {
+                            const isActive = pathname === link.href;
+                            return (
+                                <Link
+                                    key={link.name}
+                                    href={link.href}
+                                    className={`font-heading text-lg lg:text-xl transition-colors tracking-wide ${isActive ? "text-secondary font-bold border-b-2 border-secondary" : "text-white hover:text-secondary"
+                                        }`}
+                                >
+                                    {link.name}
+                                </Link>
+                            )
+                        })}
                         <a
                             href="https://playfootball.com.au/football-finder?st=location&lat=-33.8016&lng=150.8516&suburb=Eastern+Creek&state_code=NSW&postcode=2766&age=junior&clubId=74462#infoModal"
                             target="_blank"
@@ -118,16 +126,20 @@ export default function Header() {
                     </div>
 
                     <nav className="flex flex-col gap-6">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.name}
-                                href={link.href}
-                                className="font-heading text-2xl hover:text-secondary transition-colors border-b border-white/10 pb-4 tracking-wide"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                            >
-                                {link.name}
-                            </Link>
-                        ))}
+                        {navLinks.map((link) => {
+                            const isActive = pathname === link.href;
+                            return (
+                                <Link
+                                    key={link.name}
+                                    href={link.href}
+                                    className={`font-heading text-2xl transition-colors border-b border-white/10 pb-4 tracking-wide ${isActive ? "text-secondary font-bold" : "text-white hover:text-secondary"
+                                        }`}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    {link.name}
+                                </Link>
+                            )
+                        })}
                         <a
                             href="https://playfootball.com.au/football-finder?st=location&lat=-33.8016&lng=150.8516&suburb=Eastern+Creek&state_code=NSW&postcode=2766&age=junior&clubId=74462#infoModal"
                             target="_blank"
