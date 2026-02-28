@@ -23,7 +23,11 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'X-Frame-Options',
-            value: 'SAMEORIGIN',
+            value: 'ALLOWALL',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: "frame-ancestors 'self' http://localhost:3000 http://localhost:3001 https://anantasystems.com.au https://www.anantasystems.com.au;",
           },
           {
             key: 'X-Content-Type-Options',
