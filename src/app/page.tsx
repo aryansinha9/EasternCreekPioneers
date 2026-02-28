@@ -85,7 +85,7 @@ export default async function Home() {
 
           <div className="mt-8">
             <a href="https://360player.com/en-au" target="_blank" rel="noopener noreferrer" className="inline-block bg-white text-primary font-heading font-bold py-4 px-10 text-lg hover:bg-secondary hover:text-primary transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,215,0,0.5)] transform hover:-translate-y-1 uppercase tracking-widest">
-              JOIN PLAY360 NOW
+              JOIN 360Player NOW
             </a>
           </div>
         </div>
