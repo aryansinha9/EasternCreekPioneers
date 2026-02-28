@@ -5,7 +5,7 @@ import { MoveRight } from "lucide-react";
 
 export default function Hero() {
     return (
-        <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
+        <section className="relative h-[75vh] min-h-[600px] flex items-center justify-center overflow-hidden">
             {/* Background Image with Overlay */}
             <div className="absolute inset-0 z-0">
                 <Image
@@ -20,7 +20,7 @@ export default function Hero() {
             </div>
 
             {/* Content */}
-            <div className="relative z-10 text-left px-6 max-w-7xl mx-auto w-full flex flex-col items-start h-full justify-center pt-16">
+            <div className="relative z-10 text-left px-6 max-w-7xl mx-auto w-full flex flex-col items-start h-full justify-center pt-48 pb-16">
                 <div className="animate-fade-in-up drop-shadow-lg mb-6">
                     <h1 className="heading-hero text-white leading-none">
                         <span className="block text-4xl md:text-6xl lg:text-7xl mb-2 tracking-wide md:tracking-wider">JOIN US AND</span>

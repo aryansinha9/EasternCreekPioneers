@@ -72,14 +72,14 @@ export default function Header() {
                     </Link>
 
                     {/* Desktop Navigation (Center/Right) */}
-                    <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+                    <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
                         {navLinks.map((link) => {
                             const isActive = pathname === link.href;
                             return (
                                 <Link
                                     key={link.name}
                                     href={link.href}
-                                    className={`font-heading text-base lg:text-lg transition-colors tracking-wide ${isActive ? "text-secondary font-bold border-b-2 border-secondary" : "text-white hover:text-secondary"
+                                    className={`font-heading text-sm lg:text-base transition-colors tracking-wide ${isActive ? "text-secondary font-bold border-b-2 border-secondary" : "text-white hover:text-secondary"
                                         }`}
                                 >
                                     {link.name}
@@ -90,7 +90,7 @@ export default function Header() {
                             href="https://playfootball.com.au/football-finder?st=location&lat=-33.8016&lng=150.8516&suburb=Eastern+Creek&state_code=NSW&postcode=2766&age=junior&clubId=74462#infoModal"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="bg-secondary text-primary font-heading font-bold py-2 px-5 rounded-sm lg:text-base hover:bg-white transition-all uppercase tracking-widest whitespace-nowrap"
+                            className="bg-secondary text-primary font-heading font-bold py-2 px-4 rounded-sm text-sm lg:text-base hover:bg-white transition-all uppercase tracking-widest whitespace-nowrap"
                         >
                             JOIN
                         </a>
