@@ -1,28 +1,39 @@
 'use client'
 
 import { useState } from 'react'
+import { submitContactForm } from '@/app/actions/contact'
 
 export default function ContactForm() {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         setIsSubmitting(true)
+        setErrorMessage('')
 
-        // Prevent default submission and stimulate a mock network request
-        // since the backend implementation is specifically requested to be excluded currently
-        setTimeout(() => {
+        try {
+            const formData = new FormData(e.currentTarget)
+            const result = await submitContactForm(formData)
+
             setIsSubmitting(false)
-            setIsSuccess(true)
 
-            // Revert success message after 5 seconds
-            setTimeout(() => {
-                setIsSuccess(false)
-                const form = document.getElementById('contact-form') as HTMLFormElement
-                if (form) form.reset()
-            }, 5000)
-        }, 1500)
+            if (result?.success) {
+                setIsSuccess(true)
+                // Revert success message after 5 seconds
+                setTimeout(() => {
+                    setIsSuccess(false)
+                    const form = document.getElementById('contact-form') as HTMLFormElement
+                    if (form) form.reset()
+                }, 5000)
+            } else {
+                setErrorMessage(result?.error || 'Failed to send message. Please try again.')
+            }
+        } catch (error) {
+            setIsSubmitting(false)
+            setErrorMessage('An unexpected error occurred. Please try again later.')
+        }
     }
 
     return (
@@ -55,6 +66,18 @@ export default function ContactForm() {
                         </div>
 
                         <div>
+                            <label htmlFor="email" className="block text-sm font-bold text-gray-700 mb-2">Email Address *</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                required
+                                className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-body transition-colors"
+                                placeholder="john@example.com"
+                            />
+                        </div>
+
+                        <div>
                             <label htmlFor="phone" className="block text-sm font-bold text-gray-700 mb-2">Phone Number *</label>
                             <input
                                 type="tel"
@@ -77,6 +100,12 @@ export default function ContactForm() {
                                 placeholder="How can we help you?"
                             ></textarea>
                         </div>
+
+                        {errorMessage && (
+                            <div className="text-red-600 text-sm mt-2 p-3 bg-red-50 border-l-4 border-red-500 rounded">
+                                {errorMessage}
+                            </div>
+                        )}
                     </div>
 
                     <button
