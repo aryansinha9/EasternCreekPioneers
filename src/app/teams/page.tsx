@@ -20,7 +20,7 @@ export default async function TeamsPage() {
 
             {/* Simple Hero */}
             <section className="bg-primary pt-32 pb-16 px-6 text-center text-white">
-                <h1 className="heading-section text-white mb-4">OUR TEAMS</h1>
+                <h1 className="heading-section !text-white mb-4">OUR TEAMS</h1>
                 <p className="text-xl max-w-2xl mx-auto text-gray-200">
                     From Under 6s to All Age - check out our squads for the 2026 season.
                 </p>
@@ -43,7 +43,7 @@ export default async function TeamsPage() {
                                     }`}
                             >
                                 <div className="flex-1">
-                                    <h2 className={`heading-section text-4xl mb-4 ${isEven ? 'text-primary' : 'text-white'}`}>
+                                    <h2 className={`heading-section text-4xl mb-4 ${isEven ? 'text-primary' : '!text-white'}`}>
                                         {section.title}
                                     </h2>
                                     <p className={`font-body mb-8 text-lg ${isEven ? 'text-gray-600' : 'text-gray-200'}`}>
