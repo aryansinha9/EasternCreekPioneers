@@ -1,23 +1,50 @@
 'use client'
 
-import { useTransition } from 'react'
+import { useState, useTransition } from 'react'
 import { savePageContent } from './actions'
-import { ArrowLeft, Save, LayoutTemplate } from 'lucide-react'
+import { ArrowLeft, Save, LayoutTemplate, Plus, Trash2, GripVertical } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+
+type Section = {
+    heading: string
+    body: string
+}
 
 type PageData = {
     id: string
     slug: string
     title: string
     content: string
+    sections: Section[]
 }
+
+const MAX_SECTIONS = 20
 
 export default function PageEditForm({ initialData }: { initialData: PageData }) {
     const router = useRouter()
     const [isPending, startTransition] = useTransition()
+    const [sections, setSections] = useState<Section[]>(initialData.sections || [])
+
+    const addSection = () => {
+        if (sections.length >= MAX_SECTIONS) return
+        setSections([...sections, { heading: '', body: '' }])
+    }
+
+    const removeSection = (index: number) => {
+        setSections(sections.filter((_, i) => i !== index))
+    }
+
+    const updateSection = (index: number, field: keyof Section, value: string) => {
+        const updated = [...sections]
+        updated[index] = { ...updated[index], [field]: value }
+        setSections(updated)
+    }
 
     const handleSubmit = (formData: FormData) => {
+        // Inject sections as JSON into formData
+        formData.set('sections', JSON.stringify(sections))
+
         startTransition(async () => {
             try {
                 const result = await savePageContent(formData)
@@ -74,6 +101,83 @@ export default function PageEditForm({ initialData }: { initialData: PageData })
                             placeholder="Type or paste your page content here..."
                             className="w-full px-4 py-4 border border-gray-300 rounded focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-body text-base md:text-lg leading-relaxed resize-y"
                         ></textarea>
+                    </div>
+
+                    {/* Content Sections */}
+                    <div className="border-t border-gray-200 pt-8">
+                        <div className="flex items-center justify-between mb-6">
+                            <div>
+                                <h2 className="text-lg font-heading font-bold text-gray-900 uppercase tracking-wider flex items-center gap-2">
+                                    <GripVertical size={20} className="text-primary" /> Content Sections
+                                </h2>
+                                <p className="text-sm text-gray-500 mt-1">
+                                    Add structured sections with headings and body text. These appear below the main content.
+                                </p>
+                            </div>
+                            <span className="text-xs font-bold text-gray-500 bg-gray-100 px-3 py-1.5 rounded">
+                                {sections.length} / {MAX_SECTIONS}
+                            </span>
+                        </div>
+
+                        {sections.length === 0 && (
+                            <div className="border-2 border-dashed border-gray-200 rounded p-8 text-center text-gray-400 mb-6">
+                                <p className="font-medium">No sections added yet.</p>
+                                <p className="text-sm mt-1">Click &ldquo;Add Section&rdquo; below to create structured content blocks.</p>
+                            </div>
+                        )}
+
+                        <div className="space-y-6">
+                            {sections.map((section, index) => (
+                                <div key={index} className="border border-gray-200 rounded bg-gray-50 p-5 relative group">
+                                    <div className="flex items-center justify-between mb-4">
+                                        <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded uppercase tracking-wider">
+                                            Section {index + 1}
+                                        </span>
+                                        <button
+                                            type="button"
+                                            onClick={() => removeSection(index)}
+                                            className="text-gray-400 hover:text-red-500 transition-colors p-1.5 hover:bg-red-50 rounded"
+                                            title="Remove section"
+                                        >
+                                            <Trash2 size={16} />
+                                        </button>
+                                    </div>
+
+                                    <div className="space-y-4">
+                                        <div>
+                                            <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wider">Section Heading</label>
+                                            <input
+                                                type="text"
+                                                value={section.heading}
+                                                onChange={(e) => updateSection(index, 'heading', e.target.value)}
+                                                placeholder="Enter section heading..."
+                                                className="w-full px-4 py-2.5 border border-gray-300 rounded focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-heading text-lg tracking-wide bg-white"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs font-bold text-gray-600 mb-1.5 uppercase tracking-wider">Section Body</label>
+                                            <textarea
+                                                value={section.body}
+                                                onChange={(e) => updateSection(index, 'body', e.target.value)}
+                                                rows={6}
+                                                placeholder="Enter section body text..."
+                                                className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary font-body text-base leading-relaxed resize-y bg-white"
+                                            ></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <button
+                            type="button"
+                            onClick={addSection}
+                            disabled={sections.length >= MAX_SECTIONS}
+                            className="mt-6 w-full flex items-center justify-center gap-2 py-3 border-2 border-dashed border-gray-300 rounded text-gray-500 hover:border-primary hover:text-primary transition-colors font-bold uppercase tracking-wider text-sm disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-gray-300 disabled:hover:text-gray-500"
+                        >
+                            <Plus size={18} />
+                            {sections.length >= MAX_SECTIONS ? 'Maximum Sections Reached' : 'Add Section'}
+                        </button>
                     </div>
                 </div>
 

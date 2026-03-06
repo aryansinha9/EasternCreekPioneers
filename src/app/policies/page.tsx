@@ -22,6 +22,8 @@ export default async function PoliciesPage() {
         .eq('slug', 'policies')
         .single();
 
+    const sections: { heading: string; body: string }[] = page?.sections || [];
+
     return (
         <main className="min-h-screen flex flex-col font-body text-neutral-900 bg-gray-50">
             <Header />
@@ -51,6 +53,45 @@ export default async function PoliciesPage() {
                             Page content is currently being updated.
                         </div>
                     )}
+
+                    {/* Structured Sections */}
+                    {sections.length > 0 && (
+                        <div className="mt-12 space-y-10 border-t border-gray-100 pt-10">
+                            {sections.map((section, index) => (
+                                <div key={index}>
+                                    {section.heading && (
+                                        <h2 className="text-2xl font-heading font-bold text-primary mb-4 uppercase tracking-wide">
+                                            {section.heading}
+                                        </h2>
+                                    )}
+                                    {section.body && (
+                                        <div className="prose prose-lg max-w-none prose-p:text-gray-700">
+                                            {section.body.split('\n').map((paragraph: string, pIndex: number) => {
+                                                if (paragraph.trim() === '') return <br key={pIndex} aria-hidden="true" />;
+                                                return (
+                                                    <p key={pIndex} className="mb-4 leading-relaxed">
+                                                        {paragraph}
+                                                    </p>
+                                                );
+                                            })}
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+
+                {/* BDSFA Resources Link */}
+                <div className="mt-8 text-center">
+                    <a
+                        href="https://bdsfa.com/resources/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block bg-primary text-white font-heading font-bold py-4 px-10 text-lg hover:bg-secondary hover:text-primary transition-all uppercase tracking-widest shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
+                    >
+                        BDSFA Resources
+                    </a>
                 </div>
             </section>
 
